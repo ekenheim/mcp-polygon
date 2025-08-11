@@ -113,11 +113,14 @@ A comprehensive Model Context Protocol (MCP) server that provides access to Poly
 The project automatically builds Docker images on GitHub Actions:
 
 ```bash
-# Pull the latest image
-docker pull ghcr.io/ekenheim/mcp-polygon:main
+# Pull a specific version (recommended for production)
+docker pull ghcr.io/ekenheim/mcp-polygon:v1.1.0
 
 # Run with environment variable
-docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:main
+docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:v1.1.0
+
+# Or pull the latest from main branch (development)
+docker pull ghcr.io/ekenheim/mcp-polygon:main
 ```
 
 ## Kubernetes Deployment ☸️

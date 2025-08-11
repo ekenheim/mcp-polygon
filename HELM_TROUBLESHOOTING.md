@@ -82,7 +82,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ekenheim/mcp-polygon
-              tag: latest
+              tag: v1.1.0  # Use specific version for production stability
             env:
               POLYGON_API_KEY:
                 valueFrom:
