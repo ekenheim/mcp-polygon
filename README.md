@@ -1,40 +1,200 @@
-# MCP in 10 Minutes
-Learn how to build a MCP Server for Yahoo Finance (and just about anything else) in 10 minutes. 
+# MCP Polygon.io Server
 
-## See it live and in action 📺
-<img src="https://i.imgur.com/P1uv4QN.jpeg"/>
+A comprehensive Model Context Protocol (MCP) server that provides access to Polygon.io's financial data API. This server offers real-time and historical market data, company information, financial statements, and more through a standardized MCP interface.
 
-# Startup 🚀
+## Features 🚀
 
-## Option 1: Docker (Recommended for self-hosting)
+- **Real-time Market Data**: Access live trades, quotes, and market events
+- **Historical Data**: Get historical price data, dividends, splits, and more
+- **Company Information**: Retrieve detailed company profiles and financial data
+- **Financial Statements**: Access income statements, balance sheets, and cash flow data
+- **Market Analysis**: Get market status, gainers/losers, and trading sessions
+- **Options Data**: Retrieve options contracts and snapshot data
+- **News & Events**: Access company news and earnings data
+- **Docker Support**: Easy deployment with Docker and Docker Compose
+- **Kubernetes Ready**: Includes K8s deployment configurations
 
-1. Clone this repository `git clone https://github.com/nicknochnack/MCPin10` and go into it `cd MCPin10`
-2. Copy the environment template: `cp env.example .env`
-3. Edit `.env` and add your Polygon API key (get one at https://polygon.io/)
-4. Run the Docker setup script:
-   - **Windows**: `.\scripts\docker-setup.ps1`
-   - **Linux/Mac**: `./scripts/docker-setup.sh`
-5. Or manually: `docker-compose up -d`
-6. Check logs: `docker-compose logs mcp-server`
+## Quick Start 🏃‍♂️
 
-## Option 2: Local Development
+### Option 1: Docker (Recommended)
 
-1. Clone this repository `git clone https://github.com/nicknochnack/MCPin10` and go into it `cd MCPin10`
-2. Create a virtual environment `uv venv` and activate it `source .venv/bin/activate`
-3. Install the dependencies `uv sync`
-4. Set your Polygon API key: `export POLYGON_API_KEY=your_key_here`
-5. Run the inspector `uv run mcp dev server.py`
-6. Run the agent `uv run agent.py`
-7. Install langflow and run it: `uv pip install langflow` and `uv run langflow run`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ekenheim/mcp-polygon
+   cd mcp-polygon
+   ```
 
-<b>N.b.</b> Make sure you have ollama running. 
+2. **Set up environment**:
+   ```bash
+   cp env.example .env
+   # Edit .env and add your Polygon API key
+   ```
 
-# Other stuff
-- Installing Langflow: https://docs.langflow.org/get-started-installation
-- Docker setup guide: See `DOCKER_README.md` for detailed Docker deployment instructions
+3. **Run with Docker Compose**:
+   ```bash
+   docker-compose up -d
+   ```
 
-# Who, When, Why?
+4. **Check logs**:
+   ```bash
+   docker-compose logs mcp-server
+   ```
 
-👨🏾‍💻 Author: Nick Renotte <br />
-📅 Version: 1.x<br />
-📜 License: This project is licensed under the MIT License </br>
+### Option 2: Local Development
+
+1. **Clone and setup**:
+   ```bash
+   git clone https://github.com/ekenheim/mcp-polygon
+   cd mcp-polygon
+   uv venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   uv sync
+   ```
+
+2. **Set API key**:
+   ```bash
+   export POLYGON_API_KEY=your_polygon_api_key_here
+   ```
+
+3. **Run the server**:
+   ```bash
+   uv run python server.py
+   ```
+
+## API Key Setup 🔑
+
+1. Get a free API key from [Polygon.io](https://polygon.io/)
+2. Set it in your `.env` file or environment variables
+3. For real-time data, consider upgrading to a paid plan
+
+## Available Tools 🛠️
+
+### Market Data
+- `get_last_trade(ticker)` - Get the most recent trade
+- `get_last_quote(ticker)` - Get the most recent quote
+- `get_previous_close(ticker)` - Get previous day's data
+- `get_aggregates(ticker, multiplier, timespan, from_date, to_date)` - Get historical aggregates
+- `get_intraday_aggregates(ticker, multiplier, timespan, from_date, to_date)` - Get intraday data with session info
+
+### Company Information
+- `stock_info(ticker)` - Get company background information
+- `get_ticker_exchange_info(ticker)` - Get exchange and listing details
+- `search_tickers(search, market, active)` - Search for ticker symbols
+
+### Financial Data
+- `income_statement(ticker)` - Get quarterly income statements
+- `get_balance_sheet(ticker)` - Get balance sheet data
+- `get_cash_flow(ticker)` - Get cash flow statements
+- `get_earnings(ticker)` - Get earnings data
+- `get_dividends(ticker)` - Get dividend history
+- `get_splits(ticker)` - Get stock split history
+
+### Market Analysis
+- `get_market_status()` - Get current market status
+- `get_market_gainers_losers(direction)` - Get top gainers/losers
+- `get_market_hours_info()` - Get trading hours information
+- `get_market_holidays()` - Get upcoming market holidays
+
+### Options Data
+- `get_options_contracts(underlying_asset)` - Get options contracts
+- `get_options_snapshot(underlying_asset)` - Get options snapshot data
+
+### News & Events
+- `get_ticker_news(ticker)` - Get company news
+- `get_analyst_ratings(ticker)` - Get analyst ratings
+- `get_short_interest(ticker)` - Get short interest data
+
+### Economic Data
+- `get_treasury_yields()` - Get treasury yield data
+- `get_inflation_data()` - Get inflation indicators
+
+## Docker Images 🐳
+
+The project automatically builds Docker images on GitHub Actions:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/ekenheim/mcp-polygon:main
+
+# Run with environment variable
+docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:main
+```
+
+## Kubernetes Deployment ☸️
+
+Use the provided `k8s-deployment.yaml` for Kubernetes deployment:
+
+```bash
+kubectl apply -f k8s-deployment.yaml
+```
+
+## Development 🧪
+
+### Testing with MCP Inspector
+
+```bash
+# Install MCP Inspector
+pip install mcp-inspector
+
+# Test the server
+mcp dev server.py
+```
+
+### Local Testing
+
+```bash
+# Run the server
+uv run python server.py
+
+# In another terminal, run the agent
+uv run python agent.py
+```
+
+## Configuration ⚙️
+
+### Environment Variables
+
+- `POLYGON_API_KEY` - Your Polygon.io API key (required)
+- `MCP_HTTP_TRANSPORT` - Set to "true" for HTTP transport (default: false)
+- `PORT` - Port for HTTP transport (default: 8000)
+- `DEBUG` - Enable debug logging (default: false)
+
+### Docker Configuration
+
+The `docker-compose.yml` includes:
+- Volume mounting for persistent data
+- Environment variable configuration
+- Health checks
+- Logging configuration
+
+## API Limitations 📊
+
+- **Free Tier**: Limited to basic endpoints (previous close, ticker info, market status)
+- **Paid Plans**: Access to real-time trades, quotes, and advanced features
+- **Rate Limits**: Vary by subscription level
+
+## Contributing 🤝
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License 📄
+
+This project is licensed under the MIT License.
+
+## Support 💬
+
+- **Issues**: [GitHub Issues](https://github.com/ekenheim/mcp-polygon/issues)
+- **Polygon.io API**: [Documentation](https://polygon.io/docs/)
+- **MCP Protocol**: [Specification](https://modelcontextprotocol.io/)
+
+## Author 👨‍💻
+
+**Ekenheim** - [GitHub](https://github.com/ekenheim)
+
+---
+
+**Note**: This server requires a Polygon.io API key. Some endpoints require paid subscriptions for real-time data access.
