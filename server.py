@@ -24,8 +24,16 @@ def stock_summary(stock_data:str) -> str:
                 
 # Add in a resource function
 import chromadb
+
+# Initialize ChromaDB client
 chroma_client = chromadb.PersistentClient(path="ticker_db")
-collection = chroma_client.get_collection(name="stock_tickers")
+
+# Get or create the collection
+try:
+    collection = chroma_client.get_collection(name="stock_tickers")
+except Exception:
+    # If collection doesn't exist, create it
+    collection = chroma_client.create_collection(name="stock_tickers")
 @mcp.resource("tickers://search/{stock_name}")
 def list_tickers(stock_name:str)->str: 
     """This resource allows you to find a stock ticker by passing through a stock name e.g. Google, Bank of America etc. 
@@ -40,8 +48,11 @@ def list_tickers(stock_name:str)->str:
         {'ids': [['41', '30']], 'embeddings': None, 'documents': [['AZN - ASTRAZENECA PLC', 'NVO - NOVO NORDISK A S']], 'uris': None, 'included': ['metadatas', 'documents', 'distances'], 'data': None, 'metadatas': [[None, None]], 'distances': [[1.1703131198883057, 1.263759970664978]]}
         
     """
-    results = collection.query(query_texts=[stock_name], n_results=1) 
-    return str(results) 
+    try:
+        results = collection.query(query_texts=[stock_name], n_results=1) 
+        return str(results)
+    except Exception as e:
+        return f"Error searching for ticker '{stock_name}': {str(e)}" 
     
 # Internal helpers for Polygon.io
 def _require_polygon_api_key() -> str:
