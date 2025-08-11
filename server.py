@@ -496,14 +496,9 @@ def get_treasury_yields(
 if __name__ == "__main__":
     import sys
     
-    # Check if HTTP transport is requested via environment variable
-    if os.environ.get("MCP_HTTP_TRANSPORT", "false").lower() == "true":
-        port = int(os.environ.get("PORT", 8000))
-        print(f"Starting MCP server with HTTP transport on port {port}")
-        mcp.run(transport=f"http://0.0.0.0:{port}")
-    else:
-        print("Starting MCP server with stdio transport")
-        mcp.run(transport="stdio")
+    # FastMCP only supports stdio transport
+    print("Starting MCP server with stdio transport")
+    mcp.run(transport="stdio")
 
 # Market Hours and Timezone Utilities
 @mcp.tool()
