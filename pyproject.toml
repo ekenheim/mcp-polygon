@@ -9,5 +9,10 @@ dependencies = [
     "colorama>=0.4.6",
     "mcp[cli]>=1.6.0",
     "smolagents[litellm,mcp]>=1.13.0",
-    "yfinance>=0.2.55",
+    "polygon-api-client>=1.14.2",
+    "googlefinance>=0.7",
+    "oauth2client>=4.1.3",
+    "pandas>=2.1.3",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
 ]

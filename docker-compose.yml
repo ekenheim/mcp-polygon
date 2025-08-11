@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build: .
+    container_name: mcp-polygon-server
+    environment:
+      - POLYGON_API_KEY=${POLYGON_API_KEY}
+      - PYTHONUNBUFFERED=1
+      - MCP_HTTP_TRANSPORT=true
+      - PORT=8000
+    volumes:
+      # Persist the ticker database
+      - ./ticker_db:/app/ticker_db
+      # Mount logs directory if needed
+      - ./logs:/app/logs
+    ports:
+      # Expose port for HTTP transport
+      - "8000:8000"
+    restart: unless-stopped

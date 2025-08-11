@@ -1,0 +1,45 @@
+# Git files
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+.venv
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database files (will be created at runtime)
+ticker_db/
+
+# Documentation
+README.md
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Environment files (should be passed as env vars)
+.env
+.env.local
+.env.production

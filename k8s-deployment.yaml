@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-polygon-server
+  labels:
+    app: mcp-polygon-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcp-polygon-server
+  template:
+    metadata:
+      labels:
+        app: mcp-polygon-server
+    spec:
+      containers:
+      - name: mcp-server
+        image: mcp-polygon-server:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: POLYGON_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: polygon-api-secret
+              key: api-key
+        - name: MCP_HTTP_TRANSPORT
+          value: "true"
+        - name: PORT
+          value: "8000"
+        volumeMounts:
+        - name: ticker-db
+          mountPath: /app/ticker_db
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: ticker-db
+        persistentVolumeClaim:
+          claimName: ticker-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-polygon-service
+spec:
+  selector:
+    app: mcp-polygon-server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ticker-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: polygon-api-secret
+type: Opaque
+data:
+  api-key: <base64-encoded-api-key>
