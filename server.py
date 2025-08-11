@@ -500,7 +500,7 @@ if __name__ == "__main__":
     if os.environ.get("MCP_HTTP_TRANSPORT", "false").lower() == "true":
         port = int(os.environ.get("PORT", 8000))
         print(f"Starting MCP server with HTTP transport on port {port}")
-        mcp.run(transport="http", port=port)
+        mcp.run(transport=f"http://0.0.0.0:{port}")
     else:
         print("Starting MCP server with stdio transport")
         mcp.run(transport="stdio")
