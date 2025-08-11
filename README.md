@@ -122,9 +122,56 @@ docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:main
 
 ## Kubernetes Deployment ☸️
 
-Use the provided `k8s-deployment.yaml` for Kubernetes deployment:
+### Option 1: Using the provided k8s-deployment.yaml
+
+1. **Create the secret first**:
+   ```bash
+   # Create the secret with your API key
+   kubectl create secret generic polygon-api-secret \
+     --from-literal=api-key=your_polygon_api_key_here \
+     -n your-namespace
+   ```
+
+2. **Deploy the application**:
+   ```bash
+   kubectl apply -f k8s-deployment.yaml
+   ```
+
+### Option 2: Using Helm (recommended for production)
+
+1. **Create the secret** (see `k8s-secret-example.yaml`):
+   ```bash
+   # Encode your API key
+   echo -n "your_polygon_api_key_here" | base64
+   
+   # Apply the secret
+   kubectl apply -f k8s-secret-example.yaml
+   ```
+
+2. **Update your HelmRelease** to include the API key:
+   ```yaml
+   env:
+     POLYGON_API_KEY:
+       valueFrom:
+         secretKeyRef:
+           name: mcp-polygon
+           key: POLYGON_API_KEY
+     MCP_HTTP_TRANSPORT: "true"
+     PORT: "8000"
+   ```
+
+### Option 3: Direct kubectl deployment
 
 ```bash
+# Create namespace
+kubectl create namespace datasci
+
+# Create secret
+kubectl create secret generic mcp-polygon \
+  --from-literal=POLYGON_API_KEY=your_polygon_api_key_here \
+  -n datasci
+
+# Deploy
 kubectl apply -f k8s-deployment.yaml
 ```
 

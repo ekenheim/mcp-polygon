@@ -24,7 +24,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: polygon-api-secret
-              key: api-key
+              key: POLYGON_API_KEY
         - name: MCP_HTTP_TRANSPORT
           value: "true"
         - name: PORT
@@ -86,4 +86,4 @@ metadata:
   name: polygon-api-secret
 type: Opaque
 data:
-  api-key: <base64-encoded-api-key>
+  POLYGON_API_KEY: <base64-encoded-api-key>
