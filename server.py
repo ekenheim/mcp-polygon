@@ -505,11 +505,11 @@ if __name__ == "__main__":
     # Check if HTTP transport is requested via environment variable
     if os.environ.get("MCP_HTTP_TRANSPORT", "false").lower() == "true":
         port = int(os.environ.get("PORT", 8000))
-        print(f"Starting MCP server with Streamable HTTP transport on port {port}")
+        print(f"Starting MCP server with SSE transport on port {port}")
         
-        # Use FastMCP's recommended Streamable HTTP transport for web services
-        # According to FastMCP docs: https://gofastmcp.com/servers/server
-        mcp.run(transport="http", host="0.0.0.0", port=port)
+        # Use FastMCP's SSE transport for better compatibility with MCP clients
+        # This is what Langflow and other MCP clients expect
+        mcp.run(transport="sse", host="0.0.0.0", port=port)
     else:
         print("Starting MCP server with stdio transport")
         mcp.run(transport="stdio")

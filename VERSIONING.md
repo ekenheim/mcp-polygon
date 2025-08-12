@@ -123,7 +123,8 @@ kubectl set image deployment/mcp-polygon mcp-server=ghcr.io/ekenheim/mcp-polygon
 
 | MCP Server Version | Polygon.io API | Python Version | Notes |
 |-------------------|----------------|----------------|-------|
-| v1.5.3 | v2/v3 | 3.9+ | Current stable |
+| v1.5.5 | v2/v3 | 3.9+ | Current stable - SSE transport for Langflow |
+| v1.5.3 | v2/v3 | 3.9+ | Previous stable |
 | v1.5.2 | v2/v3 | 3.9+ | Previous stable |
 | v1.5.0 | v2/v3 | 3.9+ | Previous stable |
 | v1.0.0 | v2/v3 | 3.9+ | Initial release |
