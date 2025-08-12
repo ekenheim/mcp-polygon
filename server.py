@@ -492,19 +492,25 @@ def get_treasury_yields(
     except Exception as e:
         return f"Error: {str(e)}"
 
+# Add health check endpoint for HTTP transport
+@mcp.tool()
+def health_check() -> str:
+    """Health check endpoint for Kubernetes probes"""
+    return "OK"
+
 # Kick off server if file is run 
 if __name__ == "__main__":
     import sys
     
     # Check if HTTP transport is requested via environment variable
-if os.environ.get("MCP_HTTP_TRANSPORT", "false").lower() == "true":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting MCP server with SSE transport on port {port}")
-    # FastMCP SSE transport (closest to HTTP for web deployment)
-    mcp.run(transport="sse")
-else:
-    print("Starting MCP server with stdio transport")
-    mcp.run(transport="stdio")
+    if os.environ.get("MCP_HTTP_TRANSPORT", "false").lower() == "true":
+        port = int(os.environ.get("PORT", 8000))
+        print(f"Starting MCP server with SSE transport on port {port}")
+        # FastMCP SSE transport (closest to HTTP for web deployment)
+        mcp.run(transport="sse")
+    else:
+        print("Starting MCP server with stdio transport")
+        mcp.run(transport="stdio")
 
 # Market Hours and Timezone Utilities
 @mcp.tool()
