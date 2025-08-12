@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mcp-server
-        image: ghcr.io/ekenheim/mcp-polygon:v1.5.2
+        image: ghcr.io/ekenheim/mcp-polygon:v1.5.3
         ports:
         - containerPort: 8000
         env:

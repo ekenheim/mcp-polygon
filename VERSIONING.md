@@ -12,8 +12,8 @@ This project follows [Semantic Versioning](https://semver.org/) (SemVer) with th
 
 | Version | Tag | Description | Date |
 |---------|-----|-------------|------|
-| v1.5.2 | `v1.5.2` | Health check endpoint, development workflow fixes | Current |
-| v1.5.1 | `v1.5.1` | SSE transport support, Docker build fixes | Previous |
+| v1.5.3 | `v1.5.3` | FastMCP Streamable HTTP transport for Kubernetes compatibility | Current |
+| v1.5.2 | `v1.5.2` | Health check endpoint, development workflow fixes | Previous |
 | v1.5.0 | `v1.5.0` | HTTP transport support, enhanced tool coverage | Previous |
 | v1.1.0 | `v1.1.0` | Kubernetes deployment fixes, troubleshooting guide | Previous |
 | v1.0.0 | `v1.0.0` | Initial release | Previous |
@@ -23,10 +23,10 @@ This project follows [Semantic Versioning](https://semver.org/) (SemVer) with th
 ### Production Images (Recommended)
 ```bash
 # Latest stable release
-docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.2
+docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.3
 
 # Previous stable release
-docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.1
+docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.2
 ```
 
 ### Development Images
@@ -49,8 +49,8 @@ git add .
 git commit -m "Prepare for v1.2.0 release"
 
 # 3. Create and push a new tag
-git tag -a v1.5.2 -m "Release v1.5.2: Health check endpoint and development workflow fixes"
-git push origin v1.5.2
+git tag -a v1.5.3 -m "Release v1.5.3: FastMCP Streamable HTTP transport for Kubernetes compatibility"
+git push origin v1.5.3
 ```
 
 ### 2. GitHub Actions Automatically Builds
@@ -69,10 +69,10 @@ Update your HelmRelease or Kubernetes deployment:
 # For Helm
 image:
   repository: ghcr.io/ekenheim/mcp-polygon
-  tag: v1.5.2  # Update to new version
+  tag: v1.5.3  # Update to new version
 
 # For Kubernetes
-image: ghcr.io/ekenheim/mcp-polygon:v1.5.2
+image: ghcr.io/ekenheim/mcp-polygon:v1.5.3
 ```
 
 ## Version Update Checklist
@@ -87,7 +87,7 @@ image: ghcr.io/ekenheim/mcp-polygon:v1.5.2
 
 ### After Creating a New Version
 
-- [ ] Verify the Docker image is available: `docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.2`
+- [ ] Verify the Docker image is available: `docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.3`
 - [ ] Test the new image locally
 - [ ] Update your production deployments
 - [ ] Monitor the deployment for any issues
@@ -109,7 +109,7 @@ kubectl set image deployment/mcp-polygon mcp-server=ghcr.io/ekenheim/mcp-polygon
 ## Best Practices
 
 ### For Production
-- ✅ Use specific version tags (e.g., `v1.5.2`)
+- ✅ Use specific version tags (e.g., `v1.5.3`)
 - ✅ Test new versions in staging first
 - ✅ Keep previous version available for rollback
 - ❌ Avoid using `latest` or `main` tags
@@ -123,13 +123,13 @@ kubectl set image deployment/mcp-polygon mcp-server=ghcr.io/ekenheim/mcp-polygon
 
 | MCP Server Version | Polygon.io API | Python Version | Notes |
 |-------------------|----------------|----------------|-------|
-| v1.5.2 | v2/v3 | 3.9+ | Current stable |
-| v1.5.1 | v2/v3 | 3.9+ | Previous stable |
+| v1.5.3 | v2/v3 | 3.9+ | Current stable |
+| v1.5.2 | v2/v3 | 3.9+ | Previous stable |
 | v1.5.0 | v2/v3 | 3.9+ | Previous stable |
 | v1.0.0 | v2/v3 | 3.9+ | Initial release |
 
 ## Support Matrix
 
-- **v1.5.2**: Full support, recommended for production
+- **v1.5.3**: Full support, recommended for production
 - **v1.0.0**: Security updates only
 - **main**: Development, no guarantees
