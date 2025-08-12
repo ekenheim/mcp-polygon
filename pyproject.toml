@@ -1,7 +1,7 @@
 [project]
-name = "mcpvideo"
-version = "0.1.0"
-description = "Add your description here"
+name = "mcp-polygon-server"
+version = "1.5.0"
+description = "MCP Server for Polygon.io financial data API"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

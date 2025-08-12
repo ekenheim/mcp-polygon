@@ -114,10 +114,10 @@ The project automatically builds Docker images on GitHub Actions:
 
 ```bash
 # Pull a specific version (recommended for production)
-docker pull ghcr.io/ekenheim/mcp-polygon:v1.1.0
+docker pull ghcr.io/ekenheim/mcp-polygon:v1.5.0
 
 # Run with environment variable
-docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:v1.1.0
+docker run -e POLYGON_API_KEY=your_key ghcr.io/ekenheim/mcp-polygon:v1.5.0
 
 # Or pull the latest from main branch (development)
 docker pull ghcr.io/ekenheim/mcp-polygon:main
