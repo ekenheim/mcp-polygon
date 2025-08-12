@@ -1,13 +1,13 @@
 [project]
 name = "mcp-polygon-server"
-version = "1.5.3"
+version = "1.5.4"
 description = "MCP Server for Polygon.io financial data API"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "chromadb>=1.0.4",
     "colorama>=0.4.6",
-    "mcp[cli]>=1.6.0",
+    "fastmcp>=2.0.0",
     "smolagents[litellm,mcp]>=1.13.0",
     "polygon-api-client>=1.14.2",
     "googlefinance>=0.7",

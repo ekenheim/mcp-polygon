@@ -6,7 +6,7 @@ from typing import Dict, Any, List, Optional, Union, Literal
 import requests
 from colorama import Fore
 from dotenv import load_dotenv
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 # Load environment variables from .env file
 load_dotenv()
@@ -508,6 +508,7 @@ if __name__ == "__main__":
         print(f"Starting MCP server with Streamable HTTP transport on port {port}")
         
         # Use FastMCP's recommended Streamable HTTP transport for web services
+        # According to FastMCP docs: https://gofastmcp.com/servers/server
         mcp.run(transport="http", host="0.0.0.0", port=port)
     else:
         print("Starting MCP server with stdio transport")
